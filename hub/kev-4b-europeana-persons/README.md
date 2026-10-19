@@ -25,8 +25,10 @@ any, a person named in a Europeana cultural-heritage record is (Yale Cultural He
 and up to ten Wikidata candidates, it picks one candidate or `none`.
 
 It is the best of ten System One architectures we fine-tuned on this task with
-system1-finetune-bench (Yale Cultural Heritage AI) (GLiNER2.5-Decide, kev-4b, plumb-4b,
+[system1-finetune-bench](https://github.com/yale-ch/system1-finetune-bench) (Yale Cultural Heritage AI) (GLiNER2.5-Decide, kev-4b, plumb-4b,
 decider-2b, Open-Jev-9B, openjev-nli-4b, JEV-9B, Laya, von, bekko-400m; three seeds each).
+
+The comparison is written up in [Eighteen Models, One Decision](https://wjbmattingly.com/blog/eighteen-models-one-decision/).
 
 ## Files
 
@@ -62,7 +64,6 @@ Serve it with the [kev](https://github.com/jaredpalmer/kev) repository, exactly 
 
 ```bash
 git clone https://github.com/jaredpalmer/kev.git && cd kev && uv sync --extra serve
-huggingface-cli login            # the repository is private
 uv run --extra serve python -m kev.serve --run yale-cultural-heritage/kev-4b-europeana-persons --port 8008
 ```
 
@@ -88,7 +89,7 @@ r = client.system_one(state=state, questions={"entity": Choice(
 print(r.choices["entity"].choice, r.choices["entity"].probabilities)
 ```
 
-Or with system1-finetune-bench: point a `pointer`-family model config's `adapter:` and `head:` at this repository
+Or with [system1-finetune-bench](https://github.com/yale-ch/system1-finetune-bench): point a `pointer`-family model config's `adapter:` and `head:` at this repository
 (see `configs/models/kev-4b.yaml`).
 
 ## Training
