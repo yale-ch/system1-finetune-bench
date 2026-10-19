@@ -1,0 +1,11 @@
+# Linked Art term reconciliation (chai-linkedart mds-linkedart-recon term split) as used for the
+# GLiNER2.5-Decide-linkedart-recon fine-tune. Not on the Hub: the JSONL lives on Bouchet.
+name: linkedart-recon-choice
+converter: s1bench.data.builtin:recon
+as: choice
+source:
+  jsonl:
+    train: /home/wjm55/project_pi_rs2668/shared/workflows/gliner-decide-recon/data/train.jsonl
+    test: /home/wjm55/project_pi_rs2668/shared/workflows/gliner-decide-recon/data/val.jsonl
+splits: [train, test]
+dev_frac: 0.05

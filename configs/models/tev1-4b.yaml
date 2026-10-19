@@ -1,0 +1,10 @@
+# Tev1-4B-experimental (Together): Qwen3.5-4B VLM SFT'd to emit one letter; read here as letter logits A..X.
+# NOTE: licence "being finalized" on the Hub -- internal research use only.
+family: letters
+style: tev1
+checkpoint: togethercomputer/Tev1-4B-experimental
+revision: 0b7becf017daa0e5eb222f8ce7483c8c8259c52f
+licence: unspecified
+lora: {r: 16, alpha: 32, dropout: 0.05, targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj]}
+train: {lr: 5.0e-5, micro_batch: 4, batch_size: 16, eval_every: 100}
+resources: {partition: gpu_rtx6000, gpu: rtx_pro_6000_blackwell, mem: 96G, time: "12:00:00"}

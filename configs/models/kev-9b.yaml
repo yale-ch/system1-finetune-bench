@@ -1,0 +1,11 @@
+# kev-9b (jaredpalmer): Qwen3.5-9B-Base + LoRA r16 + pointer head; continues from the released adapter and head (T 2.19).
+family: pointer
+checkpoint: Qwen/Qwen3.5-9B-Base
+revision: 68c46c4b3498877f3ef123c856ecfde50c39f404
+adapter: {repo: jaredpalmer/kev-9b, revision: db029f08b290afd9fee4aa4bbcd9ae48602d1eb0}
+head: {repo: jaredpalmer/kev-9b, file: head.pt, revision: db029f08b290afd9fee4aa4bbcd9ae48602d1eb0}
+head_dim: 256
+licence: apache-2.0
+max_state_tokens: 3072
+train: {lr: 2.0e-5, micro_batch: 2, batch_size: 8, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 96G, cpus: 8, time: "16:00:00"}

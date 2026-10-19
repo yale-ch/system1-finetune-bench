@@ -1,0 +1,10 @@
+# decider-4b v2.1 (Mapika): Qwen3.5-4B-Base, full merged weights; plain "(A) ... Answer: (" letter readout.
+family: letters
+style: decider
+checkpoint: Mapika/decider-4b
+revision: eb5fbdfc9448473ec25e399882912863afbdb70e
+temperature: {choice: 1.11, noul: 1.56, score: 1.287}
+licence: apache-2.0
+lora: {r: 64, alpha: 128, dropout: 0.05, targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj]}
+train: {lr: 1.0e-4, micro_batch: 4, batch_size: 16, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 96G, cpus: 8, time: "16:00:00"}

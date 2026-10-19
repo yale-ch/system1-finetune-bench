@@ -1,0 +1,11 @@
+# decider-2b v11 (Mapika): Qwen3.5-2B-Base, full merged weights. Plain "Context/Question/Options/(A)/Answer: (" prompt,
+# letter logits at the final "(". Score is asked listwise ("i: level"), not with decider's default isolated rows.
+family: letters
+style: decider
+checkpoint: Mapika/decider-2b
+revision: 533964dae8be954c5b5e19fa4948e48408094c1e
+temperature: {choice: 1.164, noul: 1.624, score: 1.124}
+licence: apache-2.0
+lora: {r: 64, alpha: 128, dropout: 0.05, targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj]}
+train: {lr: 1.0e-4, micro_batch: 4, batch_size: 16, eval_every: 100}
+resources: {partition: gpu, gpu: rtx_5000_ada, mem: 48G, time: "12:00:00"}

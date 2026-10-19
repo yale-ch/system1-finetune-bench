@@ -1,0 +1,8 @@
+# Europeana persons -> Wikidata (4,000 persons, 3,456 with candidates). Private: needs an HF token with access
+# to yale-cultural-heritage. One Choice per person over its candidates + none.
+name: europeana-recon-choice
+converter: s1bench.data.builtin:recon
+as: choice
+source: {hf: yale-cultural-heritage/europeana-persons-wikidata-labelled, name: gliner}
+splits: [train, test]
+dev_frac: 0.1

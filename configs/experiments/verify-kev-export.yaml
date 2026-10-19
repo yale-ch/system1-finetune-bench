@@ -1,0 +1,13 @@
+# Score the exported kev-4b fine-tune (kev's own file format) without training: must match the run it came from.
+name: verify-kev-export
+model:
+  name: kev-4b-europeana-export
+  family: pointer
+  checkpoint: Qwen/Qwen3.5-4B-Base
+  revision: 1001bb4d826a52d1f399e183466143f4da7b741b
+  adapter: {repo: /nfs/roberts/pi/pi_rs2668/system1-finetune-bench/exports/kev-4b-europeana-persons}
+  head: {repo: /nfs/roberts/pi/pi_rs2668/system1-finetune-bench/exports/kev-4b-europeana-persons, file: head.pt}
+  resources: {partition: gpu_b200, gpu: b200, mem: 64G, time: "01:00:00"}
+datasets: [europeana-recon-choice]
+approach: {choice: described}
+train: {eval_only: true}

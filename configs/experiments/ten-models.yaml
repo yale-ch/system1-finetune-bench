@@ -1,0 +1,11 @@
+# The headline comparison: ten architectures fine-tuned on the same Europeana person-reconciliation Choice data,
+# three seeds each (one seed is not a result: seeds moved GLiNER by 5 points on this task). Scored zero-shot and
+# tuned on the 364-person test split; per-model learning rates and batch sizes come from configs/models/*.yaml.
+name: ten-models
+defaults:
+  datasets: [europeana-recon-choice]
+  approach: {choice: described, shuffle_options: true}
+  train: {epochs: 2}
+matrix:
+  model: [gliner-decide, kev-4b, plumb-4b, decider-2b, open-jev-9b, openjev-nli-4b, jev-9b, laya, von, bekko-400m]
+  train.seed: [42, 7, 1234]

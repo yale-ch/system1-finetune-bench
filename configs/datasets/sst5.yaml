@@ -1,0 +1,14 @@
+# Public Score benchmark: 5-level sentiment of a movie-review sentence.
+name: sst5
+type: score
+source: {hf: SetFit/sst5}
+splits: {train: train, dev: validation, test: test}
+state: "{text}"
+question: "How positive is the sentiment of this review?"
+options:
+  - {key: "1", text: very negative}
+  - {key: "2", text: negative}
+  - {key: "3", text: neutral}
+  - {key: "4", text: positive}
+  - {key: "5", text: very positive}
+answer: {field: label, map: {0: "1", 1: "2", 2: "3", 3: "4", 4: "5"}}

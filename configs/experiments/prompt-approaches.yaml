@@ -1,0 +1,20 @@
+# How should each question type be put to each model? One seed per cell (a screen, not a verdict -- rerun the
+# interesting cells with more seeds). Choice on Europeana reconciliation, Noul on the per-candidate Europeana
+# questions, Score on SST-5. Training sets are capped at 6,000 examples so cells are comparable in cost.
+name: prompt-approaches
+defaults:
+  approach: {shuffle_options: true}
+  train: {epochs: 2, max_train: 6000, seed: 42}
+matrix:
+  model: [gliner-decide, kev-4b, plumb-4b, decider-2b, open-jev-9b, openjev-nli-4b, jev-9b, laya, von, bekko-400m]
+  variant:
+    - {datasets: [europeana-recon-choice], approach: {choice: described}}
+    - {datasets: [europeana-recon-choice], approach: {choice: in_state}}
+    - {datasets: [europeana-recon-choice], approach: {choice: bare}}
+    - {datasets: [europeana-recon-choice], approach: {choice: lettered}}
+    - {datasets: [europeana-recon-noul], approach: {noul: statement}}
+    - {datasets: [europeana-recon-noul], approach: {noul: question}}
+    - {datasets: [europeana-recon-noul], approach: {noul: as_choice}}
+    - {datasets: [sst5], approach: {score: rubric}}
+    - {datasets: [sst5], approach: {score: numeric}}
+    - {datasets: [sst5], approach: {score: as_choice}}

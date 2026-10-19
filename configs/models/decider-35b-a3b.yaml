@@ -1,0 +1,11 @@
+# decider-35b-a3b (Mapika): Qwen3.5-MoE 35B total / 3B active (256 experts), plain "(A) ... Answer: (" letter readout.
+# LoRA on attention, DeltaNet and the shared-expert MLPs; the routed experts stay frozen.
+family: letters
+style: decider
+checkpoint: Mapika/decider-35b-a3b
+revision: 91470e65478656eb68fde8c0ccdfe575d69d0309
+temperature: 1.08
+licence: apache-2.0
+lora: {r: 32, alpha: 64, dropout: 0.05, targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj]}
+train: {lr: 5.0e-5, micro_batch: 2, batch_size: 16, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 128G, cpus: 8, time: "24:00:00"}

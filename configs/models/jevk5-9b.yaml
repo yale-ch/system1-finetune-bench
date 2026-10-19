@@ -1,0 +1,10 @@
+# JevK5-9B (alibiserikbay): Qwen3.5-9B, letter logits A..P after a chat-template JSON prompt (T 1.316).
+family: letters
+style: jevk5
+checkpoint: alibiserikbay/JevK5-9B
+revision: d6521a18a86999190e9d775c915af3d6d6772fc4
+temperature: 1.316
+licence: apache-2.0
+lora: {r: 16, alpha: 32, dropout: 0.05, targets: [q_proj, k_proj, v_proj, o_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj]}
+train: {lr: 3.0e-5, micro_batch: 4, batch_size: 16, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 96G, cpus: 8, time: "16:00:00"}

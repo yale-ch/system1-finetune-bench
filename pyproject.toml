@@ -1,0 +1,53 @@
+[project]
+name = "system1-finetune-bench"
+version = "0.1.0"
+description = "Fine-tune and compare open System One decision models (Choice / Score / Noul) on your own datasets, on Bouchet"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "torch>=2.8",
+    "transformers>=5.5",
+    "peft>=0.18",
+    "accelerate>=1.10",
+    "datasets>=3.0",
+    "safetensors>=0.4",
+    "sentencepiece>=0.2",
+    "pyarrow>=17",
+    "pyyaml>=6",
+    "numpy>=1.26",
+    "huggingface_hub>=0.34",
+    "gliner2[local]==2.0.0",
+    "sentence-transformers>=5",
+]
+
+[project.scripts]
+s1-train = "s1bench.train:main"
+s1-submit = "s1bench.submit:main"
+s1-report = "s1bench.report:main"
+
+[tool.uv]
+# gliner2 pins transformers<5. GLiNER2.5-Decide scores bit-identically under 4.57 and 5.16 (checked in
+# chai-reconciler), and the Qwen3.5 / Gemma 4 backbones need transformers 5, so one environment overrides it.
+override-dependencies = ["transformers>=5.5"]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu128", marker = "sys_platform == 'linux'" }]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["s1bench"]
+
+[tool.pytest.ini_options]
+markers = ["tiny: tiny random-weight models on CPU (downloads a tokenizer once)"]

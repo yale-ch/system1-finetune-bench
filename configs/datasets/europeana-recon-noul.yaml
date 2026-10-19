@@ -1,0 +1,8 @@
+# Europeana persons -> Wikidata (4,000 persons, 3,456 with candidates). Private: needs an HF token with access
+# to yale-cultural-heritage. One Noul per (person, candidate): is this candidate the person?
+name: europeana-recon-noul
+converter: s1bench.data.builtin:recon
+as: noul
+source: {hf: yale-cultural-heritage/europeana-persons-wikidata-labelled, name: gliner}
+splits: [train, test]
+dev_frac: 0.1

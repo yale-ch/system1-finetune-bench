@@ -1,0 +1,12 @@
+# GEV-26B-Decide (autotrust): Gemma-4 26B-A4B MoE + LoRA r32 (attention + dense MLP, experts frozen) + 24-slot head,
+# <bos> + bare "[kind]..[decision]:" template, 30*tanh(z/30) softcap. The released adapter targets the full
+# vision-language model's module paths, so it is attached there ("attach: full").
+family: slots
+checkpoint: autotrust/GEV-26B-Decide
+revision: 7c89590ead085bf77630b4bf68264ea30b6ddc78
+adapter: {repo: autotrust/GEV-26B-Decide, subfolder: adapter, revision: 7c89590ead085bf77630b4bf68264ea30b6ddc78, attach: full}
+head: {repo: autotrust/GEV-26B-Decide, revision: 7c89590ead085bf77630b4bf68264ea30b6ddc78}
+licence: apache-2.0 (adapter, head); base under the Gemma terms
+max_state_tokens: 3072
+train: {lr: 5.0e-5, head_lr: 1.0e-4, micro_batch: 2, batch_size: 16, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 128G, cpus: 8, time: "24:00:00"}

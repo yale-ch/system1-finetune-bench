@@ -1,0 +1,11 @@
+# von 1.3 (wfzyx): ModernBERT-large option-marker model, options independent of each other (order-invariant).
+family: von
+checkpoint: wfzyx/von
+revision: 498ceba33390b32cfefaab6422ec380318ba9b99
+independent_options: true
+digit_split: false            # as served by the SDK (the training docs say true; see docs/models.md)
+brier_weight: 0.5
+max_len: 4096
+licence: apache-2.0
+train: {lr: 1.0e-5, head_lr: 4.0e-5, micro_batch: 4, batch_size: 16, eval_every: 100}
+resources: {partition: gpu, gpu: rtx_5000_ada, mem: 48G, time: "06:00:00"}

@@ -1,0 +1,12 @@
+# kev-4b (jaredpalmer): Qwen3.5-4B-Base + LoRA r16 + pointer head over option-closing tokens.
+# Continues from the released adapter and head (T = 2.41 from head.pt).
+family: pointer
+checkpoint: Qwen/Qwen3.5-4B-Base
+revision: 1001bb4d826a52d1f399e183466143f4da7b741b    # the base revision kev-4b was trained on
+adapter: {repo: jaredpalmer/kev-4b, revision: 6cfce5c2fa4b4bd64026336ab649c5ca78857d52}
+head: {repo: jaredpalmer/kev-4b, file: head.pt, revision: 6cfce5c2fa4b4bd64026336ab649c5ca78857d52}
+head_dim: 256
+licence: apache-2.0
+max_state_tokens: 3072
+train: {lr: 2.0e-5, micro_batch: 2, batch_size: 8, eval_every: 100}
+resources: {partition: gpu_rtx6000, gpu: rtx_pro_6000_blackwell, mem: 96G, time: "12:00:00"}

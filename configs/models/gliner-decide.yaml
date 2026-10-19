@@ -1,0 +1,7 @@
+# GLiNER2.5-Decide: DeBERTa-v3-large label classifier (fastino). Full fine-tune with gliner2's trainer.
+family: gliner2
+checkpoint: fastino/GLiNER2.5-Decide          # gliner2 loads by name; the hub sha at pin time was 5a7adf72
+licence: apache-2.0
+gradient_checkpointing: true
+train: {lr: 1.0e-5, head_lr: 1.0e-4, micro_batch: 8, batch_size: 16, eval_every: 100}
+resources: {partition: gpu, gpu: rtx_5000_ada, mem: 48G, time: "06:00:00"}

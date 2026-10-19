@@ -1,0 +1,11 @@
+# Open-Jev-27B-v1.1 (ZefanCai): Qwen3.8-27B + LoRA r8 + scalar Yes/No head, one chat prompt per candidate (T 2.534).
+family: candidate
+checkpoint: Qwen/Qwen3.8-27B
+revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+adapter: {repo: ZefanCai/Open-Jev-27B-v1.1, subfolder: package/checkpoint/adapter, revision: 28cf73067d5b337860bbef3c85b8b82ba8730956}
+head: {repo: ZefanCai/Open-Jev-27B-v1.1, subfolder: package/checkpoint, file: head.pt, temperature_file: temperature.json, revision: 28cf73067d5b337860bbef3c85b8b82ba8730956}
+brier_weight: 0.1
+licence: apache-2.0
+max_state_tokens: 3072
+train: {lr: 2.0e-5, head_lr: 5.0e-5, micro_batch: 1, batch_size: 8, eval_every: 100, scheduler: constant}
+resources: {partition: gpu_b200, gpu: b200, mem: 128G, cpus: 8, time: "24:00:00"}

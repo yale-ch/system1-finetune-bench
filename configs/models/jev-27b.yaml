@@ -1,0 +1,10 @@
+# JEV-27B (autotrust): Qwen3.8-27B text tower + LoRA r16 + 24-slot head, bare "[kind]..[decision]:" template.
+family: slots
+checkpoint: autotrust/JEV-27B
+revision: 51740a8891c2a8baefd969237fd44187b3e3a115
+adapter: {repo: autotrust/JEV-27B, subfolder: adapter, revision: 51740a8891c2a8baefd969237fd44187b3e3a115}
+head: {repo: autotrust/JEV-27B, revision: 51740a8891c2a8baefd969237fd44187b3e3a115}
+licence: apache-2.0
+max_state_tokens: 3072
+train: {lr: 1.0e-4, head_lr: 2.0e-4, micro_batch: 2, batch_size: 16, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 128G, cpus: 8, time: "24:00:00"}

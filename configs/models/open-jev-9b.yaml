@@ -1,0 +1,11 @@
+# Open-Jev-9B (ZefanCai): Qwen3.5-9B + LoRA r8 + scalar Yes/No head, one chat prompt per candidate.
+family: candidate
+checkpoint: Qwen/Qwen3.5-9B
+revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a      # pinned in package/checkpoint/model.json
+adapter: {repo: ZefanCai/Open-Jev-9B, subfolder: package/checkpoint/adapter, revision: 47e966881e489511c0c7f5633a9e1960a676a551}
+head: {repo: ZefanCai/Open-Jev-9B, subfolder: package/checkpoint, file: head.pt, temperature_file: temperature.json, revision: 47e966881e489511c0c7f5633a9e1960a676a551}
+brier_weight: 0.1
+licence: apache-2.0
+max_state_tokens: 3072
+train: {lr: 5.0e-5, head_lr: 1.0e-4, micro_batch: 1, batch_size: 8, eval_every: 100, scheduler: constant}
+resources: {partition: gpu_rtx6000, gpu: rtx_pro_6000_blackwell, mem: 96G, time: "16:00:00"}

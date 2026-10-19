@@ -1,0 +1,12 @@
+# kev-27b (jaredpalmer): full bf16 fine-tune of Qwen3.8-27B (64 layers, d=5120) + pointer head (T 1.32).
+# The release has no adapter: we add a fresh LoRA r16 over the released weights and keep training the head.
+family: pointer
+checkpoint: jaredpalmer/kev-27b
+revision: af0e6d551bdc2cc724f3e9d7a8bee1cd4fb8f7bf
+head: {repo: jaredpalmer/kev-27b, file: head.pt, revision: af0e6d551bdc2cc724f3e9d7a8bee1cd4fb8f7bf}
+head_dim: 256
+lora: {r: 16, alpha: 32, dropout: 0.05, targets: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj]}
+licence: apache-2.0
+max_state_tokens: 3072
+train: {lr: 2.0e-5, micro_batch: 2, batch_size: 8, eval_every: 100}
+resources: {partition: gpu_b200, gpu: b200, mem: 128G, cpus: 8, time: "24:00:00"}

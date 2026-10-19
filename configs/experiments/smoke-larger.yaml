@@ -1,0 +1,8 @@
+name: smoke-larger
+defaults:
+  datasets: [europeana-recon-choice]
+  eval_datasets: [boolq, sst5]
+  train: {max_steps: 6, eval_every: 3, max_test: 24, max_dev: 24, log_every: 2, eval_batch: 4}
+matrix:
+  model: [kev-9b, kev-27b, jev-27b, open-jev-27b, jevk5-9b, decider-4b, decider-35b-a3b, gev-26b]
+slurm: {time: "03:00:00"}

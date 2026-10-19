@@ -1,0 +1,9 @@
+# Public Noul benchmark: is the yes/no question's answer "yes" given the passage?
+name: boolq
+type: noul
+source: {hf: google/boolq}
+splits: {train: train, test: validation}
+state: "{passage}"
+question: "The answer to this question is yes: {question}?"
+answer: {field: answer, map: {true: 1.0, false: 0.0}}
+limit: {train: 6000}

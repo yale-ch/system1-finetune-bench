@@ -1,0 +1,10 @@
+# bekko-system-one-v0-400m (hotchpotch): ModernBERT reranker; shared-prefix query, one branch per candidate,
+# mean-pool + per-type head. NOTE: no licence declared on the Hub yet -- internal research use only.
+family: bekko
+checkpoint: hotchpotch/bekko-system-one-v0-400m
+revision: 1960df5602bd93cc8d336fdebd9fb68a30926e13
+licence: unspecified
+query_length: 4096
+document_length: 512
+train: {lr: 1.0e-5, head_lr: 2.0e-4, micro_batch: 4, batch_size: 16, eval_every: 100}
+resources: {partition: gpu, gpu: rtx_5000_ada, mem: 48G, time: "06:00:00"}

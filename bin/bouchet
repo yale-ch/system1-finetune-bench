@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Drive the Bouchet side from a laptop. Needs `ssh yale-cluster` to work (Duo once per ControlMaster session).
+#
+#   bin/bouchet sync                      copy code + configs to the cluster (rsync; runs/data/venv untouched)
+#   bin/bouchet setup                     create/refresh the venv on the cluster (uv sync)
+#   bin/bouchet prepare <dataset>...      materialise datasets on the cluster (train/dev/test JSONL)
+#   bin/bouchet push-data <dataset>...    prepare datasets HERE and copy them up (private HF data: no token on the cluster)
+#   bin/bouchet submit <experiment> [..]  sync, then submit every unfinished run (args go to s1bench.submit)
+#   bin/bouchet status [sweep]            your queue + finished/failed runs of a sweep
+#   bin/bouchet report <sweep>            build runs/<sweep>/report.md on the cluster and print it
+#   bin/bouchet pull <sweep>              copy metrics, predictions, logs back (not the weights)
+#   bin/bouchet run <cmd...>              run a command in the repo on the login node
+set -euo pipefail
+HOST=${S1_HOST:-yale-cluster}
+REMOTE=${S1_REMOTE:-/nfs/roberts/pi/pi_rs2668/system1-finetune-bench/repo}
+HERE=$(cd "$(dirname "$0")/.." && pwd)
+r() { ssh "$HOST" "cd $REMOTE && source bouchet/env.sh && $*"; }
+
+cmd=${1:-help}; shift || true
+case "$cmd" in
+  sync)
+    ssh "$HOST" "mkdir -p $REMOTE"
+    rsync -az --delete --exclude /.git --exclude /.venv --exclude /runs --exclude /data --exclude '__pycache__' \
+      --exclude 'bouchet/env.local.sh' "$HERE/" "$HOST:$REMOTE/" ;;
+  setup)
+    "$0" sync
+    r "uv sync --frozen 2>/dev/null || uv sync" ;;
+  prepare)
+    "$0" sync
+    for d in "$@"; do r ".venv/bin/python -m s1bench.prepare $d"; done ;;
+  push-data)
+    for d in "$@"; do (cd "$HERE" && .venv/bin/python -m s1bench.prepare "$d"); done
+    ssh "$HOST" "mkdir -p $REMOTE/data"
+    for d in "$@"; do rsync -az "$HERE/data/$d" "$HOST:$REMOTE/data/"; done ;;
+  submit)
+    exp=$1; shift
+    "$0" sync
+    r ".venv/bin/python -m s1bench.submit $exp $*" ;;
+  status)
+    ssh "$HOST" "squeue -u \$USER -o '%.10i %.9P %.60j %.2t %.10M %R'"
+    if [ $# -gt 0 ]; then r ".venv/bin/python -m s1bench.status runs/$1"; fi ;;
+  report)
+    r ".venv/bin/python -m s1bench.report runs/$1" ;;
+  pull)
+    mkdir -p "$HERE/runs/$1"
+    rsync -az --exclude 'best/' --exclude '*.safetensors' --exclude '*.pt' --exclude '*.bin' "$HOST:$REMOTE/runs/$1/" "$HERE/runs/$1/" ;;
+  run)
+    r "$*" ;;
+  *) sed -n '2,13p' "$0" ;;
+esac

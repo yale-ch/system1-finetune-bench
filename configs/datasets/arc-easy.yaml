@@ -1,0 +1,10 @@
+# Public Choice benchmark: grade-school science multiple choice.
+name: arc-easy
+type: choice
+source: {hf: allenai/ai2_arc, name: ARC-Easy}
+splits: {train: train, dev: validation, test: test}
+id: "{id}"
+state: "{question}"
+question: "Which answer is correct?"
+options: {keys: choices.label, texts: choices.text}
+answer: "{answerKey}"

@@ -1,0 +1,9 @@
+# Smoke test: every model loads, trains a few steps on Choice data and predicts all three question types.
+name: smoke
+defaults:
+  datasets: [europeana-recon-choice]
+  eval_datasets: [boolq, sst5]
+  train: {max_steps: 8, eval_every: 4, max_test: 24, max_dev: 24, log_every: 2, eval_batch: 4}
+matrix:
+  model: [gliner-decide, kev-4b, plumb-4b, decider-2b, open-jev-9b, openjev-nli-4b, jev-9b, laya, von, bekko-400m]
+slurm: {time: "01:30:00"}

@@ -1,0 +1,11 @@
+# Larger System One models on the ten-models task (Europeana Choice, 3 seeds): kev at 9B and 27B, the 27B JEV and
+# Open-Jev, JevK5-9B, decider-4b, the decider 35B-A3B MoE and GEV-26B (Gemma-4 MoE). Same data, approach and
+# selection as ten-models, so the two reports compare directly.
+name: larger-models
+defaults:
+  datasets: [europeana-recon-choice]
+  approach: {choice: described, shuffle_options: true}
+  train: {epochs: 2}
+matrix:
+  model: [kev-9b, kev-27b, jev-27b, open-jev-27b, jevk5-9b, decider-4b, decider-35b-a3b, gev-26b]
+  train.seed: [42, 7, 1234]
